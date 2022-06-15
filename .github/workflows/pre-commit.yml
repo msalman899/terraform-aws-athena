@@ -19,15 +19,8 @@ jobs:
 
       - name: Pre-commit Terraform ${{ steps.minMax.outputs.minVersion }}
         # Run only validate pre-commit check on min version supported
-        uses: clowdhaus/terraform-composite-actions/pre-commit@v1.3.0
-        with:
-          terraform-version: ${{ steps.minMax.outputs.minVersion }}
-          args: 'terraform_validate --color=always --show-diff-on-failure'
-
-      - name: Pre-commit Terraform ${{ steps.minMax.outputs.minVersion }}
-        # Run only validate pre-commit check on min version supported
         if: ${{ matrix.directory ==  '.' }}
         uses: clowdhaus/terraform-composite-actions/pre-commit@v1.3.0
         with:
           terraform-version: ${{ steps.minMax.outputs.minVersion }}
-          args: 'terraform_validate --color=always --show-diff-on-failure'
+          args: 'terraform_validate --color=always --show-diff-on-failure --files $(ls *.tf)'
